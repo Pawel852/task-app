@@ -1,0 +1,77 @@
+/* src/App.module.css */
+:root {
+    --primary-color: #4a90e2; /* Głęboki niebieski */
+    --secondary-color: #50e3c2; /* Turkusowy akcent */
+    --background-color: #f5f7fa; /* Jasne tło */
+    --text-color: #2d3436; /* Ciemny tekst */
+    --shadow-color: rgba(0, 0, 0, 0.1); /* Cień dla 3D */
+    --transition-speed: 0.3s; /* Prędkość animacji */
+  }
+  
+  .app {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--background-color) 0%, #ffffff 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+  }
+  
+  .nav {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .nav a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all var(--transition-speed) ease;
+  }
+  
+  .nav a:hover {
+    background: var(--secondary-color);
+    color: white;
+    transform: translateY(-2px); /* Subtelna animacja uniesienia */
+    box-shadow: 0 4px 15px var(--shadow-color);
+  }
+  
+  .nav p {
+    color: var(--text-color);
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  
+  h1 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 3px var(--shadow-color);
+  }
+  
+  @media (max-width: 768px) {
+    .app {
+      padding: 10px;
+      margin-left: auto;
+    margin-right: auto;
+    }
+  
+    h1 {
+      font-size: 2rem;
+    }
+  
+    .nav a {
+      font-size: 1.2rem;
+    }
+  }
