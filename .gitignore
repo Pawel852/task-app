@@ -32,5 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 
-resources/jwt/app.key
-resources/jwt/app.pub
+resources/jwt/
