@@ -1,27 +1,27 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Register from "./pages/Register";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
-import React from "react";
-import styles from "./pages/App.module.css";
+import Profile from "./pages/Profile";
+import AdminPanel from "./pages/AdminPanel";
+import PrivateRoute from "./pages/PrivateRoute";
+import Register from "./pages/Register";
 
-const App: React.FC = () => {
+function App() {
   return (
-    <Router>
-      <div className={styles.app}>
-        <h1>TASK APP</h1>
-
-
-        {/* <nav className={styles.nav}>
-          <Link to="/login">Log in</Link>
-          <p>or register</p>
-        </nav> */}
-        <Routes>
-          <Route path="/login" element={<Login />} />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route element={<PrivateRoute />}>
           <Route path="/register" element={<Register />} />
-        </Routes>
-      </div>
-    </Router>
+        </Route>
+        <Route element={<PrivateRoute />}>
+          <Route path="/profile" element={<Profile />} />
+        </Route>
+        <Route element={<PrivateRoute allowedRole="ROLE_ADMIN" />}>
+          <Route path="/admin" element={<AdminPanel />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
-};
+}
 
 export default App;

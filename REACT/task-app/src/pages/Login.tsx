@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./Login.module.css";
 
@@ -7,9 +7,11 @@ const Login: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [message, setMessage] = useState<string>("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+
     try {
       const response = await axios.post(
         "http://localhost:8080/api/auth/login",
@@ -23,10 +25,25 @@ const Login: React.FC = () => {
           },
         }
       );
-    } catch (error: any) {
-      setMessage("Something went wrong. Please check your login details. ");
 
-      // setMessage("Error: " + (error.response?.data || error.message));
+      const { token, authenticated } = response.data;
+      const role = authenticated.principal.authorities[0]; // "ROLE_USER" lub "ROLE_ADMIN"
+
+      // Zapisujemy token i rolę w localStorage
+      localStorage.setItem("token", token);
+      localStorage.setItem("role", role);
+
+      setMessage("Login successful!");
+
+      // Przekierowanie w zależności od roli
+      if (role === "ROLE_ADMIN") {
+        navigate("/admin");
+      } else {
+        navigate("/profile");
+      }
+    } catch (error: any) {
+      setMessage("Something went wrong. Please check your login details.");
+      console.error(error.response?.data || error.message);
     }
   };
 
@@ -44,7 +61,7 @@ const Login: React.FC = () => {
         </div>
         <div className={styles.inputGroup}>
           <input
-            type="text"
+            type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
