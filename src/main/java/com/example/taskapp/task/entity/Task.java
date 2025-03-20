@@ -71,4 +71,6 @@ public class Task {
     }
 
 
+    public void setId(Long taskId) {
+    }
 }
